@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Share2, User, Mail, MessageSquare, Send } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Share2, User, Mail, MessageSquare, Send, CheckCircle } from "lucide-react";
 import SocialLinks from "../components/SocialLinks"; 
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -12,8 +12,38 @@ const ContactPage = () => {
     });
   }, []);
 
+  // State to manage the visibility of the success modal
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  // Function to handle form submission with JavaScript
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevents the default form redirect
+    const formData = new FormData(event.target);
+
+    try {
+      const response = await fetch("https://formsubmit.co/pranavmohan485@gmail.com", {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setIsSuccess(true);   // Show the success modal
+        event.target.reset(); // Clear the form fields
+      } else {
+        // Optional: Handle submission errors
+        alert("There was an error sending your message. Please try again later.");
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      alert("There was an error sending your message. Please try again later.");
+    }
+  };
+
   return (
-    <div className="px-[5%] sm:px-[5%] lg:px-[10%] min-h-screen" id="Contact">
+    <div className="px-[5%] sm:px-[5%] lg:px-[10%] min-h-screen relative" id="Contact">
       
       <div className="text-center lg:mt-[5%] mt-10 mb-8 sm:px-0 px-[5%]">
         <h2
@@ -43,13 +73,12 @@ const ContactPage = () => {
               <Share2 className="w-10 h-10 text-[#6366f1] opacity-50" />
             </div>
 
-            {/* The <form> tag MUST wrap all the inputs AND the submit button */}
+            {/* The form now uses the onSubmit handler */}
             <form 
-              action="https://formsubmit.co/pranavmohan485@gmail.com" 
-              method="POST"
+              onSubmit={handleSubmit}
               className="space-y-6"
             >
-              <input type="hidden" name="_next" value="http://localhost:5174/thankyou" />
+              {/* This hidden field is for FormSubmit to work with AJAX */}
               <input type="hidden" name="_captcha" value="false" />
 
               <div data-aos="fade-up" data-aos-delay="100" className="relative group">
@@ -82,7 +111,6 @@ const ContactPage = () => {
                 />
               </div>
 
-              {/* THIS BUTTON MUST BE INSIDE THE FORM */}
               <button
                 data-aos="fade-up"
                 data-aos-delay="400"
@@ -93,15 +121,42 @@ const ContactPage = () => {
                 Send Message
               </button>
             </form>
-            {/* The closing </form> tag is right above this line */}
 
-            {/* The SocialLinks and the border should be OUTSIDE the form */}
             <div className="mt-10 pt-6 border-t border-white/10">
               <SocialLinks />
             </div>
           </div>
         </div>
       </div>
+
+      {/* SUCCESS MODAL */}
+      {isSuccess && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in"
+          onClick={() => setIsSuccess(false)} // Close modal on background click
+        >
+          <div
+            className="bg-[#1c1e26] border border-white/10 rounded-2xl shadow-2xl p-8 text-center max-w-sm mx-4 animate-slide-up"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
+          >
+            <div className="flex justify-center mb-4">
+              <CheckCircle className="w-16 h-16 text-[#6366f1]" />
+            </div>
+            <h2 className="text-3xl font-bold mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]">
+              Success!
+            </h2>
+            <p className="text-gray-400 mb-6">
+              Your message has been sent. I'll get back to you soon.
+            </p>
+            <button
+              onClick={() => setIsSuccess(false)} // Close modal on button click
+              className="w-full bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-white py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-[#6366f1]/20 active:scale-[0.98]"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
