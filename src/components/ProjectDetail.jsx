@@ -29,7 +29,7 @@ const projectsData = [
     Title: "EstateEase – Real Estate UI",
     Img: "/src/assets/estate.jpg",
     Description: "Developed a mobile UI clone using React Native, Expo, and NativeWind based on a Figma design. Focused on clean architecture, reusable components, and responsive layout.",
-    Link: "https://estate-ease.vercel.app/",
+    Link: "https://estate-ease-to8a.vercel.app/",
     Github: "https://github.com/chinzz2024/Estate-Ease.git",
     TechStack: ["React Native", "Expo", "NativeWind", "JavaScript"],
     Features: [

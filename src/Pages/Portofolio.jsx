@@ -58,7 +58,7 @@ const techStacks = [
 
 const projects = [
     { id: 1, Img: folioxImage, Title: "FolioX – Financial Portfolio Manager", Description: "Track and manage investments with real-time market data. Built using Flutter, Django, and Firebase.", Link: "https://github.com/chinzz2024/FolioX", aos: "fade-up-right", },
-    { id: 2, Img: estateImage, Title: "EstateEase – Real Estate UI", Description: "Modern UI for real estate listings. Built using React Native, NativeWind, and Expo.", Link: "https://estate-ease.vercel.app", aos: "fade-up", },
+    { id: 2, Img: estateImage, Title: "EstateEase – Real Estate UI", Description: "Modern UI for real estate listings. Built using React Native, NativeWind, and Expo.", Link: "https://estate-ease-to8a.vercel.app/", aos: "fade-up", },
     { id: 3, Img: farmerImage, Title: "Farmers Portal", Description: "Bidding and product listing system for farmers. Developed with MERN Stack.", Link: "https://github.com/chinzz2024/Farmers_Portal", aos: "fade-up-left", },
     { id: 4, Img: inventoryImage, Title: "Inventorysys – Product Inventory System", Description: "Full‑stack inventory management web app using React.js and Django REST Framework.", Link: "https://github.com/chinzz2024/inventorysys", aos: "fade-up", },
 ];
